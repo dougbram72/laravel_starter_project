@@ -4,7 +4,7 @@
             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
                 {{ __('User Details') }}
             </h2>
-            <a href="{{ route('users.index') }}" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition duration-200 flex items-center space-x-2">
+            <a href="{{ route('users.index') }}" class="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition duration-200 flex items-center space-x-2">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
                 </svg>
@@ -93,6 +93,25 @@
                                                 @else
                                                     <span class="bg-yellow-100 text-yellow-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300">
                                                         Not verified
+                                                    </span>
+                                                @endif
+                                            </dd>
+                                        </div>
+                                        <div class="py-3 sm:py-4 grid grid-cols-3 gap-4">
+                                            <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Role</dt>
+                                            <dd class="text-sm text-gray-900 dark:text-white col-span-2">
+                                                @if($user->roles->count() > 0)
+                                                    <span class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">
+                                                        {{ $user->roles->first()->name }}
+                                                    </span>
+                                                    @if($user->isSuperAdmin())
+                                                        <span class="bg-purple-100 text-purple-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-purple-900 dark:text-purple-300">
+                                                            Super Admin
+                                                        </span>
+                                                    @endif
+                                                @else
+                                                    <span class="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">
+                                                        No role assigned
                                                     </span>
                                                 @endif
                                             </dd>
