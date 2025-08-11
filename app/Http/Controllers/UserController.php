@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Spatie\Permission\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -23,7 +24,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('users.create');
+        $roles = Role::all();
+        return view('users.create', compact('roles'));
     }
 
     /**
@@ -34,11 +36,20 @@ class UserController extends Controller
         $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:users',
-            'password' => 'required',
+            'password' => 'required|min:8',
             'password_confirmation' => 'required|same:password',
+            'role' => 'required|exists:roles,name',
         ]);
 
-        User::create($request->all());
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'dark_mode' => false,
+        ]);
+        
+        // Assign the selected role to the user
+        $user->assignRole($request->role);
 
         return redirect()->route('users.index')->with('success', 'User created successfully');
     }
@@ -56,7 +67,8 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        return view('users.edit', compact('user'));
+        $roles = Role::all();
+        return view('users.edit', compact('user', 'roles'));
     }
 
     /**
@@ -68,6 +80,7 @@ class UserController extends Controller
             'name' => 'required',
             'email' => 'required|email|unique:users,email,' . $user->id,
             'password' => 'nullable|min:8|confirmed',
+            'role' => 'required|exists:roles,name',
         ]);
         
         $user->name = $request->name;
@@ -78,6 +91,9 @@ class UserController extends Controller
         }
         
         $user->save();
+        
+        // Update user role - first remove all current roles, then assign the new one
+        $user->syncRoles([$request->role]);
         
         return redirect()->route('users.index')->with('success', 'User updated successfully');
     }
