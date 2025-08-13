@@ -31,6 +31,12 @@ class RolesAndPermissionsSeeder extends Seeder
         Permission::create(['name' => 'edit roles']);
         Permission::create(['name' => 'delete roles']);
         
+        // Shift permissions
+        Permission::create(['name' => 'view shifts']);
+        Permission::create(['name' => 'create shifts']);
+        Permission::create(['name' => 'edit shifts']);
+        Permission::create(['name' => 'delete shifts']);
+        
         // Create roles and assign permissions
         // Create super-admin role (has all permissions via Gate::before rule)
         Role::create(['name' => 'super-admin']);
@@ -41,12 +47,14 @@ class RolesAndPermissionsSeeder extends Seeder
         $managerRole = Role::create(['name' => 'manager']);
         $managerRole->givePermissionTo([
             'view users', 'create users', 'edit users',
-            'view roles'
+            'view roles', 'create roles', 'edit roles',
+            'view shifts', 'create shifts', 'edit shifts',
+            'delete shifts'
         ]);
         
         $userRole = Role::create(['name' => 'user']);
         $userRole->givePermissionTo([
-            'view users'
+            'view users', 'view shifts'
         ]);
         
         // Create admin user

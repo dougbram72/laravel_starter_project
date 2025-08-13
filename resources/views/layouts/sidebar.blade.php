@@ -25,6 +25,26 @@
             </a>
          </li>
          
+         <!-- Schedule Menu with Dropdown -->
+         <li>
+            <button type="button" class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->routeIs('shifts.*') ? 'bg-gray-100 dark:bg-gray-700' : '' }}" aria-controls="dropdown-schedule" data-collapse-toggle="dropdown-schedule">
+               <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
+               </svg>
+               <span class="flex-1 ms-3 text-left rtl:text-right whitespace-nowrap">Schedule</span>
+               <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+               </svg>
+            </button>
+            <ul id="dropdown-schedule" class="{{ request()->routeIs('shifts.*') ? '' : 'hidden' }} py-2 space-y-2">
+               <li>
+                  <a href="{{ route('shifts.index') }}" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->routeIs('shifts.*') ? 'bg-gray-100 dark:bg-gray-700' : '' }}">
+                     <span class="flex-1 ms-1 whitespace-nowrap">Shifts</span>
+                  </a>
+               </li>
+            </ul>
+         </li>
+         
          <!-- Config Menu with Dropdown -->
          <li>
             <button type="button" class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->routeIs('users.*') || request()->routeIs('roles.*') || request()->routeIs('permissions.*') ? 'bg-gray-100 dark:bg-gray-700' : '' }}" aria-controls="dropdown-config" data-collapse-toggle="dropdown-config">

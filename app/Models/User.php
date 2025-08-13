@@ -11,7 +11,7 @@ use Spatie\Permission\Traits\HasRoles;
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable, HasRoles;
+    use HasFactory, Notifiable, HasRoles; 
     
     /**
      * Super-admin functionality: users with this role will have all permissions
@@ -55,5 +55,10 @@ class User extends Authenticatable
             'password' => 'hashed',
             'dark_mode' => 'boolean',
         ];
+    }
+
+    public function shiftEntries()
+    {
+        return $this->hasMany(ShiftEntry::class);
     }
 }

@@ -14,6 +14,9 @@
         <!-- Flowbite CSS -->
         <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.css" rel="stylesheet" />
         
+        <!-- jQuery for timepicker -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
@@ -48,5 +51,6 @@
             </div>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
+        @stack('scripts')
     </body>
 </html>
